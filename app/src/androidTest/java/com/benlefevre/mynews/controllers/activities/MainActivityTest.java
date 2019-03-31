@@ -36,7 +36,7 @@ public class MainActivityTest {
     @Test
     public void mainActivityTest(){
         assertDisplayed(R.id.toolbar);
-        assertContains("My News");
+        assertDisplayed(R.string.app_name);
         assertDisplayed(R.id.activity_main_search_menu);
         assertNotExist(R.id.notification_menu);
         assertNotExist(R.id.about_menu);
@@ -45,12 +45,12 @@ public class MainActivityTest {
         assertDisplayed(R.id.toolbar);
         assertDisplayed(R.string.searchToolbarTitle);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
-        assertContains("My News");
+        assertDisplayed(R.string.app_name);
         clickMenu(R.id.notification_menu);
         assertDisplayed(R.id.toolbar);
         assertDisplayed(R.string.notificationToolBarTitle);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
-        assertContains("My News");
+        assertDisplayed(R.string.app_name);
 
     }
 }

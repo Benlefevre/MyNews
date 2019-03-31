@@ -17,6 +17,9 @@ public class SearchActivity extends AppCompatActivity {
         configureToolbar();
     }
 
+    /**
+     * Configures toolbar as ActionBar and allows to display Up item
+     */
     private void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(getString(R.string.searchToolbarTitle));
