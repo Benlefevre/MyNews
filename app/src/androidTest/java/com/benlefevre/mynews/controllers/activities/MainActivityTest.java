@@ -1,7 +1,5 @@
 package com.benlefevre.mynews.controllers.activities;
 
-import android.content.Context;
-
 import com.benlefevre.mynews.R;
 import com.schibsted.spain.barista.rule.cleardata.ClearPreferencesRule;
 
@@ -16,8 +14,6 @@ import androidx.test.filters.LargeTest;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertContains;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotExist;
 import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions.clickMenu;
@@ -25,8 +21,6 @@ import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractio
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class MainActivityTest {
-
-    private Context mContext = getInstrumentation().getTargetContext();
 
     @Rule
     public ActivityScenarioRule<MainActivity> mActivityActivityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);

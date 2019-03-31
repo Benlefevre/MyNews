@@ -15,7 +15,7 @@ import androidx.test.platform.app.InstrumentationRegistry;
 public class NyStreamTest {
 
     // Context of the app under test.
-    Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
+    private Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
 //    Test if the device has a network access
     @Test
