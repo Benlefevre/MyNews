@@ -1,8 +1,6 @@
 package com.benlefevre.mynews.utils;
 
-import com.benlefevre.mynews.models.ArticleMost;
-import com.benlefevre.mynews.models.ArticleSearch;
-import com.benlefevre.mynews.models.ArticleTop;
+import com.benlefevre.mynews.models.Article;
 
 import java.util.Map;
 
@@ -30,13 +28,13 @@ public interface NyTimesServiceAPI {
 
 //    Make the http request to fetch results on TopStories API
     @GET("topstories/v2/{subject}.json")
-    Observable<ArticleTop> getTopStoriesArticles(@Path("subject") String subject, @Query("api-key") String api_key);
+    Observable<Article> getTopStoriesArticles(@Path("subject") String subject, @Query("api-key") String api_key);
 
 //    Make the http request to fetch results on MostPopular API
     @GET("mostpopular/v2/viewed/7.json")
-    Observable<ArticleMost> getMostPopularArticles(@Query("api-key") String api_key);
+    Observable<Article> getMostPopularArticles(@Query("api-key") String api_key);
 
 //    Make the http request to fetch results on Search API
     @GET("search/v2/articlesearch.json")
-    Observable<ArticleSearch> getSearchArticles(@QueryMap Map<String, String> map, @Query("api-key") String api_key);
+    Observable<Article> getSearchArticles(@QueryMap Map<String, String> map, @Query("api-key") String api_key);
 }

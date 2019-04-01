@@ -1,8 +1,6 @@
 package com.benlefevre.mynews.utils;
 
-import com.benlefevre.mynews.models.ArticleMost;
-import com.benlefevre.mynews.models.ArticleSearch;
-import com.benlefevre.mynews.models.ArticleTop;
+import com.benlefevre.mynews.models.Article;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +13,7 @@ public class NyTimesStream {
 
     private static NyTimesServiceAPI mNyTimesServiceAPI = NyTimesServiceAPI.retrofit.create(NyTimesServiceAPI.class);
 
-    public static Observable<ArticleTop> streamFetchTopStoriesArticles(String subject) {
+    public static Observable<Article> streamFetchTopStoriesArticles(String subject) {
         return mNyTimesServiceAPI.getTopStoriesArticles(subject,NyTimesServiceAPI.api_key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -23,14 +21,14 @@ public class NyTimesStream {
     }
 
 
-    public static Observable<ArticleMost> streamFetchMostPopularArticles() {
+    public static Observable<Article> streamFetchMostPopularArticles() {
         return mNyTimesServiceAPI.getMostPopularArticles(NyTimesServiceAPI.api_key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10,TimeUnit.SECONDS);
     }
 
-    public static Observable<ArticleSearch> streamFetchSearchArticles(Map<String,String> map) {
+    public static Observable<Article> streamFetchSearchArticles(Map<String,String> map) {
         return mNyTimesServiceAPI.getSearchArticles(map,NyTimesServiceAPI.api_key)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

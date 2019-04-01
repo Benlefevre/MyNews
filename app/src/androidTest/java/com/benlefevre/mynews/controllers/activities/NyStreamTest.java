@@ -4,9 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.benlefevre.mynews.models.ArticleMost;
-import com.benlefevre.mynews.models.ArticleSearch;
-import com.benlefevre.mynews.models.ArticleTop;
+import com.benlefevre.mynews.models.Article;
 import com.benlefevre.mynews.utils.NyTimesStream;
 
 import org.junit.Assert;
@@ -36,10 +34,11 @@ public class NyStreamTest {
     // Context of the app under test.
     private Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
+    // Strings for test queries in http request in Search API
     private String beginDate = "20180101";
     private String endDate = "20190301";
 
-    //    Test if the device has a network access
+    // Test if the device has a network access
     @Test
     public void internetConnectivityTest() {
         ConnectivityManager cm =
@@ -54,8 +53,8 @@ public class NyStreamTest {
     @Test
     public void streamFetchTopStoriesArticle() {
         String query = "home";
-        Observable<ArticleTop> articleTopObservable = NyTimesStream.streamFetchTopStoriesArticles(query);
-        TestObserver<ArticleTop> articleTopTestObserver = new TestObserver<>();
+        Observable<Article> articleTopObservable = NyTimesStream.streamFetchTopStoriesArticles(query);
+        TestObserver<Article> articleTopTestObserver = new TestObserver<>();
 
         articleTopObservable.subscribeWith(articleTopTestObserver)
                 .assertNoErrors()
@@ -64,11 +63,11 @@ public class NyStreamTest {
 
         assertNotEquals(0, articleTopTestObserver.values().size());
 
-        ArticleTop articleTop = articleTopTestObserver.values().get(0);
-        ArticleTop.Result result = articleTop.getResults().get(0);
+        Article article = articleTopTestObserver.values().get(0);
+        Article.Result result = article.getResults().get(0);
 
-        assertEquals("OK", articleTop.getStatus());
-        assertEquals(query, articleTop.getSection());
+        assertEquals("OK", article.getStatus());
+        assertEquals(query, article.getSection());
 
         assertNotNull(result.getTitle());
         assertNotNull(result.getUrl());
@@ -79,8 +78,8 @@ public class NyStreamTest {
 
     @Test
     public void streamFetchMostPopularArticles() {
-        Observable<ArticleMost> articleMostObservable = NyTimesStream.streamFetchMostPopularArticles();
-        TestObserver<ArticleMost> articleMostTestObserver = new TestObserver<>();
+        Observable<Article> articleMostObservable = NyTimesStream.streamFetchMostPopularArticles();
+        TestObserver<Article> articleMostTestObserver = new TestObserver<>();
 
         articleMostObservable.subscribeWith(articleMostTestObserver)
                 .assertNoErrors()
@@ -89,8 +88,8 @@ public class NyStreamTest {
 
         assertNotEquals(0, articleMostTestObserver.values().size());
 
-        ArticleMost articleMost = articleMostTestObserver.values().get(0);
-        ArticleMost.Result result = articleMost.getResults().get(0);
+        Article articleMost = articleMostTestObserver.values().get(0);
+        Article.Result result = articleMost.getResults().get(0);
 
         assertEquals("OK", articleMost.getStatus());
 
@@ -108,8 +107,8 @@ public class NyStreamTest {
         map.put("fq", "( \"sport\")");
         map.put("beginDate", beginDate);
         map.put("endDate", endDate);
-        Observable<ArticleSearch> articleSearchObservable = NyTimesStream.streamFetchSearchArticles(map);
-        TestObserver<ArticleSearch> articleSearchTestObserver = new TestObserver<>();
+        Observable<Article> articleSearchObservable = NyTimesStream.streamFetchSearchArticles(map);
+        TestObserver<Article> articleSearchTestObserver = new TestObserver<>();
 
         articleSearchObservable.subscribeWith(articleSearchTestObserver)
                 .assertNoErrors()
@@ -118,10 +117,9 @@ public class NyStreamTest {
 
         assertNotEquals(0, articleSearchTestObserver.values().size());
 
-        ArticleSearch articleSearch = articleSearchTestObserver.values().get(0);
-        int numDoc = articleSearch.getResponse().getDocs().size();
-        List<ArticleSearch.Doc> docList = articleSearch.getResponse().getDocs();
-        ArticleSearch.Doc doc = articleSearch.getResponse().getDocs().get(0);
+        Article articleSearch = articleSearchTestObserver.values().get(0);
+        List<Article.Doc> docList = articleSearch.getResponse().getDocs();
+        Article.Doc doc = articleSearch.getResponse().getDocs().get(0);
 
         assertEquals("OK", articleSearch.getStatus());
 
@@ -131,8 +129,8 @@ public class NyStreamTest {
         assertNotNull(doc.getWebUrl());
         assertNotNull(doc.getSource());
 
-        for (ArticleSearch.Doc doc1 : docList) {
-            assertTrue(compareDate(doc.getPubDate()));
+        for (Article.Doc doc1 : docList) {
+            assertTrue(compareDate(doc1.getPubDate()));
         }
 
     }
