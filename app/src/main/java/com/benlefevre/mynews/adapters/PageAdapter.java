@@ -14,6 +14,12 @@ public class PageAdapter extends FragmentStatePagerAdapter {
         super(fm);
     }
 
+    /**
+     * Returns a new ArticleFragment that displays the correct items in a RecyclerView according to
+     * the page's position in the MainActivity's ViewPager
+     * @param position Page's position in MainActivity's ViewPager
+     * @return ArticleFragment
+     */
     @NonNull
     @Override
     public Fragment getItem(int position) {

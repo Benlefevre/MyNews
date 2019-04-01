@@ -20,7 +20,6 @@ public class NyTimesStream {
                 .timeout(10, TimeUnit.SECONDS);
     }
 
-
     public static Observable<Article> streamFetchMostPopularArticles() {
         return mNyTimesServiceAPI.getMostPopularArticles(NyTimesServiceAPI.api_key)
                 .subscribeOn(Schedulers.io())

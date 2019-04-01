@@ -13,10 +13,19 @@ import androidx.test.filters.LargeTest;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeLeft;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static androidx.test.espresso.matcher.ViewMatchers.isSelected;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertListNotEmpty;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotExist;
+import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn;
 import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions.clickMenu;
+import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
 @RunWith(AndroidJUnit4.class)
@@ -50,6 +59,18 @@ public class MainActivityTest {
         assertDisplayed(R.string.topstories);
         assertDisplayed(R.string.mostpopular);
         assertDisplayed(R.string.automobiles);
+        assertDisplayed(R.id.article_fragment_recycler_view);
+        assertListNotEmpty(R.id.article_fragment_recycler_view);
+        swipeLeft();
+        onView(allOf(withText(R.string.mostpopular),isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+        assertDisplayed(R.id.article_fragment_recycler_view);
+        assertListNotEmpty(R.id.article_fragment_recycler_view);
+        swipeLeft();
+        onView(allOf(withText(R.string.automobiles),isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+        assertDisplayed(R.id.article_fragment_recycler_view);
+        assertListNotEmpty(R.id.article_fragment_recycler_view);
+        clickOn(R.string.topstories);
+        onView(allOf(withText(R.string.topstories),isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
 
     }
 }

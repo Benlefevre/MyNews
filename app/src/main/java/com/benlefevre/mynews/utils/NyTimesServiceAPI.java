@@ -26,15 +26,15 @@ public interface NyTimesServiceAPI {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build();
 
-//    Make the http request to fetch results on TopStories API
+//    Makes the http request to fetch results on TopStories API
     @GET("topstories/v2/{subject}.json")
     Observable<Article> getTopStoriesArticles(@Path("subject") String subject, @Query("api-key") String api_key);
 
-//    Make the http request to fetch results on MostPopular API
+//    Makes the http request to fetch results on MostPopular API
     @GET("mostpopular/v2/viewed/7.json")
     Observable<Article> getMostPopularArticles(@Query("api-key") String api_key);
 
-//    Make the http request to fetch results on Search API
+//    Makes the http request to fetch results on Search API
     @GET("search/v2/articlesearch.json")
     Observable<Article> getSearchArticles(@QueryMap Map<String, String> map, @Query("api-key") String api_key);
 }
