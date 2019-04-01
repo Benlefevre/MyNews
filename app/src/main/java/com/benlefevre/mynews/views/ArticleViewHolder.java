@@ -61,6 +61,10 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
             mImageView.setImageResource(R.drawable.ic_broken_image);
     }
 
+    /**
+     * Updates the TextView's text according to result contains or not a Subsection
+     * @param result The http request's result
+     */
     private void updateSection(Article.Result result) {
         if (result.getSubsection() != null && !result.getSubsection().equals("")) {
             String section = result.getSection() + " > " + result.getSubsection();
@@ -69,6 +73,12 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
             mSection.setText(result.getSection());
     }
 
+    /**
+     * Loads a picture in the RecyclerView's ImageView according to the kind of Article and if
+     * the http request's result contains pictures.
+     * @param result the http request's result
+     * @param requestManager Google Glide here
+     */
     private void updateImageView(Article.Result result, RequestManager requestManager) {
         if (mTypeOfArticle == 1) {
             if (result.getMultimedia().size() != 0)
