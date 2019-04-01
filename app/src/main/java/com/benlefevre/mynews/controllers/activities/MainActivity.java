@@ -6,17 +6,39 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.benlefevre.mynews.R;
+import com.benlefevre.mynews.adapters.PageAdapter;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+
+    @BindView(R.id.activity_main_tablayout)
+    TabLayout mActivityMainTablayout;
+    @BindView(R.id.activity_main_viewpager)
+    ViewPager mActivityMainViewpager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         configureToolBar();
+        configureViewPager();
+    }
+
+    /**
+     * Configures the MainActivity's ViewPager with the PageAdapter that defines the number of pages
+     * displayed and their titles in the TabLayout
+     */
+    private void configureViewPager() {
+        mActivityMainViewpager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+        mActivityMainTablayout.setupWithViewPager(mActivityMainViewpager);
+        mActivityMainTablayout.setTabMode(TabLayout.MODE_FIXED);
     }
 
     @Override
@@ -46,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Configures toolbar as ActionBar and allows to display Up item
+     * Configures toolbar as ActionBar
      */
     private void configureToolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);

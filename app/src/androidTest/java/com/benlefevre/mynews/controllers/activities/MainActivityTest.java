@@ -45,6 +45,11 @@ public class MainActivityTest {
         assertDisplayed(R.string.notificationToolBarTitle);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
         assertDisplayed(R.string.app_name);
+        assertDisplayed(R.id.activity_main_tablayout);
+        assertDisplayed(R.id.activity_main_viewpager);
+        assertDisplayed(R.string.topstories);
+        assertDisplayed(R.string.mostpopular);
+        assertDisplayed(R.string.automobiles);
 
     }
 }
