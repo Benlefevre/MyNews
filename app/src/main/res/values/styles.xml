@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/background</item>
         <item name="colorOnBackground">@color/onBackground</item>
         <item name="colorSurface">@color/surface</item>
@@ -15,8 +15,13 @@
 
     </style>
     
-    <style name="Widget.MyNews.MyButton" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.MyNews.MyButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="backgroundTint">?attr/colorPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="android:textColor">@color/onPrimary</item>
     </style>
+
+
+
 
 </resources>

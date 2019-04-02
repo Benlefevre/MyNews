@@ -12,4 +12,15 @@
     <string name="topstories">Top Stories</string>
     <string name="mostpopular">Most Popular</string>
     <string name="automobiles">Automobiles</string>
+    <string name="search_query_term_hint">Search query term</string>
+    <string name="begin_date_hint">Begin date</string>
+    <string name="end_date_hint">End date</string>
+    <string name="arts">Arts</string>
+    <string name="business">Business</string>
+    <string name="entrepreneurs">Entrepreneurs</string>
+    <string name="politics">Politics</string>
+    <string name="sport">Sport</string>
+    <string name="travel">Travel</string>
+    <string name="enable_notification">Enable notification (once per day)</string>
+    <string name="search">SEARCH</string>
 </resources>
