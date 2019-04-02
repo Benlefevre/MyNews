@@ -82,6 +82,10 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
         return view;
     }
 
+    /**
+     * Adds a divider item decoration in the recycler view between each items and set the correct adapter
+     * according to the Api used
+     */
     private void configureRecyclerView() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mArticleFragmentRecyclerView.getContext(),layoutManager.getOrientation());

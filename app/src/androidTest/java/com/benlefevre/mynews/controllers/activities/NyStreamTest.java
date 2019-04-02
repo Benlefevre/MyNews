@@ -43,11 +43,10 @@ public class NyStreamTest {
     public void internetConnectivityTest() {
         ConnectivityManager cm =
                 (ConnectivityManager) appContext.getSystemService(Context.CONNECTIVITY_SERVICE);
-
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-        Assert.assertTrue(isConnected);
+        assertTrue(isConnected);
     }
 
     @Test

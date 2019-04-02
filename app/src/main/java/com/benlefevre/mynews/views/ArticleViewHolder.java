@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.models.Article;
+import com.benlefevre.mynews.utils.Utils;
 import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
@@ -39,15 +40,15 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
 
     public void updateUi(Article.Result result, RequestManager requestManager) {
         updateSection(result);
-        mTitle.setText(result.getTitle());
-        mDate.setText(result.getPublishedDate());
+        mTitle.setText(Utils.convertTitleForDisplay(result.getTitle()));
+        mDate.setText(Utils.convertDateForDisplay(result.getPublishedDate()));
         updateImageView(result, requestManager);
     }
 
     public void updateUiForResearch(Article.Doc doc, RequestManager requestManager) {
         mSection.setText(doc.getSectionName());
-        mTitle.setText(doc.getHeadline().getMain());
-        mDate.setText(doc.getPubDate());
+        mTitle.setText(Utils.convertTitleForDisplay(doc.getHeadline().getMain()));
+        mDate.setText(Utils.convertDateForDisplay(doc.getPubDate()));
         List<Article.Multimedium> multimedia = new ArrayList<>();
         multimedia.addAll(doc.getMultimedia());
         String url = null;

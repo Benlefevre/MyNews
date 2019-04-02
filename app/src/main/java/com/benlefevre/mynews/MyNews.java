@@ -1,7 +1,11 @@
 package com.benlefevre.mynews;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.widget.Toast;
 
 import com.google.android.gms.security.ProviderInstaller;
 import com.squareup.leakcanary.LeakCanary;
@@ -23,6 +27,7 @@ public class MyNews extends Application {
             return;
         }
         LeakCanary.install(this);
+        internetConnectivityTest();
         checkTls();
 
 
@@ -57,6 +62,20 @@ public class MyNews extends Application {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * Checks if the network access is OK else displays a toast to inform user
+     */
+    public void internetConnectivityTest() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        boolean isConnected = activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting();
+        if (!isConnected){
+            Toast.makeText(getApplicationContext(), "Network access is necessary to fetch the NyTimes's news", Toast.LENGTH_SHORT).show();
         }
     }
 }
