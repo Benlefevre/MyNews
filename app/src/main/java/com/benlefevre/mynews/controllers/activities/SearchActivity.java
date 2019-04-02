@@ -50,6 +50,9 @@ public class SearchActivity extends AppCompatActivity {
     MaterialButton mSearchQueryButton;
 
     private String mQuery;
+    private String mFilterQueries;
+    private String mBeginQuery;
+    private String mEndQuery;
     private int mNbChecked;
 
     @Override
@@ -96,7 +99,8 @@ public class SearchActivity extends AppCompatActivity {
 
     /**
      * Creates a DatePickerDialog with different Theme according to the build version. When user set a date in the DatePicker,
-     * the corresponding EditText is updated.
+     * the corresponding EditText is updated.     *
+     *
      * @param tag A value to set the text in the correct EditText
      */
     private void displayDatePicker(int tag) {
@@ -105,7 +109,7 @@ public class SearchActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         int style;
-        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
             style = R.style.Theme_AppCompat_DayNight_Dialog;
         else
             style = R.style.Theme_MaterialComponents_Light_Dialog;
@@ -113,7 +117,7 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String date = dayOfMonth + "/" + (month + 1) + "/" + year;
-                switch (tag){
+                switch (tag) {
                     case 0:
                         mBeginDate.setText(Utils.convertDateForDisplay(date));
                         break;
@@ -122,7 +126,7 @@ public class SearchActivity extends AppCompatActivity {
                         break;
                 }
             }
-        },year,month,day);
+        }, year, month, day);
         dialog.show();
     }
 
@@ -130,7 +134,29 @@ public class SearchActivity extends AppCompatActivity {
      * Configures all needed queries to the http request to NyTimes Search API
      */
     private void configureQueries() {
-        mQuery = mQueryTerm.getText().toString();
         mNbChecked = 0;
+        mQuery = mQueryTerm.getText().toString();
+        mBeginQuery = mBeginDate.getText().toString();
+        mEndQuery = mEndDate.getText().toString();
+        verifyIfOneCheckboxIsChecked();
+        mFilterQueries = Utils.configureFilterQueries(mCheckboxArts, mCheckboxBusiness, mCheckboxPolitics, mCheckboxSport, mCheckboxEntrepreneurs, mCheckboxTravel);
+    }
+
+    /**
+     * Verifies if one CheckBox is checked before send an intent.
+     */
+    public void verifyIfOneCheckboxIsChecked() {
+        if (mCheckboxArts.isChecked())
+            mNbChecked++;
+        if (mCheckboxBusiness.isChecked())
+            mNbChecked++;
+        if (mCheckboxPolitics.isChecked())
+            mNbChecked++;
+        if (mCheckboxEntrepreneurs.isChecked())
+            mNbChecked++;
+        if (mCheckboxSport.isChecked())
+            mNbChecked++;
+        if (mCheckboxTravel.isChecked())
+            mNbChecked++;
     }
 }

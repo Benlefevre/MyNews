@@ -1,5 +1,7 @@
 package com.benlefevre.mynews.utils;
 
+import com.google.android.material.checkbox.MaterialCheckBox;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,12 +15,13 @@ public class Utils {
         Date initial = null;
         if (initialDate.matches("\\d{2}/\\d{2}/\\d{4}$"))
             return initialDate;
-        if (initialDate.matches("\\d/\\d/\\d{4}$") || initialDate.matches("\\d/\\d{2}/\\d{4}$") || initialDate.matches("\\d{2}/\\d/\\d{4}$")){
+        if (initialDate.matches("\\d/\\d/\\d{4}$") || initialDate.matches("\\d/\\d{2}/\\d{4}$") || initialDate.matches("\\d{2}/\\d/\\d{4}$")) {
             try {
                 initial = convertFormat.parse(initialDate);
             } catch (ParseException e) {
                 e.printStackTrace();
-            }initialDate = convertFormat.format(initial);
+            }
+            initialDate = convertFormat.format(initial);
             return initialDate;
         }
         if (!initialDate.matches("\\d{4}-\\d{2}-\\d{2}\\w\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}$") && !initialDate.matches("\\d{4}-\\d{2}-\\d{2}$"))
@@ -41,5 +44,23 @@ public class Utils {
             return formattedTitle;
         } else
             return initialTitle;
+    }
+
+    public static String configureFilterQueries(MaterialCheckBox cb1, MaterialCheckBox cb2, MaterialCheckBox cb3, MaterialCheckBox cb4, MaterialCheckBox cb5, MaterialCheckBox cb6) {
+        String filterQuery = "(";
+        if (cb1.isChecked())
+            filterQuery += "\"arts\" ";
+        if (cb2.isChecked())
+            filterQuery += "\"business\" ";
+        if (cb3.isChecked())
+            filterQuery += "\"politics\" ";
+        if (cb4.isChecked())
+            filterQuery += "\"sport\" ";
+        if (cb5.isChecked())
+            filterQuery += "\"entrepreneurs\" ";
+        if (cb6.isChecked())
+            filterQuery += "\"travel\" ";
+        filterQuery += ")";
+        return filterQuery;
     }
 }

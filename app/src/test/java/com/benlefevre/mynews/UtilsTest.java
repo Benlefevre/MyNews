@@ -1,23 +1,23 @@
 package com.benlefevre.mynews;
 
-import com.benlefevre.mynews.models.Article;
+import com.benlefevre.mynews.controllers.activities.SearchActivity;
 import com.benlefevre.mynews.utils.Utils;
+import com.google.android.material.checkbox.MaterialCheckBox;
 
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 
-import java.text.SimpleDateFormat;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
-import okhttp3.internal.Util;
-
-import static org.junit.Assert.*;
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
+@RunWith(MockitoJUnitRunner.class)
 public class UtilsTest {
+
+    @Mock
+    MaterialCheckBox cb1,cb2,cb3,cb4,cb5,cb6;
 
     @Test
     public void convertDateForDisplayTest(){
@@ -51,7 +51,7 @@ public class UtilsTest {
 
 
     @Test
-    public void ConvertTitleForDisplayTest(){
+    public void convertTitleForDisplayTest(){
         String initialTitle = "A Deadly Blaze in the Alps Made a Biker a Hero and Tunnels Safer for All";
 
         assertEquals("A Deadly Blaze in the Alps Made a Biker a Hero and Tunnels S..." , Utils.convertTitleForDisplay(initialTitle));
@@ -63,5 +63,25 @@ public class UtilsTest {
         initialTitle = "A Deadly Blaze in the Alps Made a Biker a Hero and Tunnels                               ";
 
         assertEquals("A Deadly Blaze in the Alps Made a Biker a Hero and Tunnels...",Utils.convertTitleForDisplay(initialTitle));
+    }
+
+    @Test
+    public void configureQueries(){
+        MockitoAnnotations.initMocks(this);
+
+        assertEquals("()",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+        when(cb1.isChecked()).thenReturn(true);
+        assertEquals("(\"arts\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+
+        when(cb2.isChecked()).thenReturn(true);
+        assertEquals("(\"arts\" \"business\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+
+        when(cb3.isChecked()).thenReturn(true);
+        when(cb4.isChecked()).thenReturn(true);
+        assertEquals("(\"arts\" \"business\" \"politics\" \"sport\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+
+        when(cb5.isChecked()).thenReturn(true);
+        when(cb6.isChecked()).thenReturn(true);
+        assertEquals("(\"arts\" \"business\" \"politics\" \"sport\" \"entrepreneurs\" \"travel\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
     }
 }
