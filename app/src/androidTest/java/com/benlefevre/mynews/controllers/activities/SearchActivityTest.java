@@ -89,6 +89,13 @@ public class SearchActivityTest {
         clickOn(R.id.checkbox_sport);
         assertChecked(R.id.checkbox_sport);
         clickOn(R.id.search_query_button);
+        assertDisplayed(R.id.toolbar);
+        assertDisplayed(R.string.result_search_toolbar_title);
+        assertNotExist(R.id.activity_main_search_menu);
+        assertNotExist(R.id.notification_menu);
+        assertNotExist(R.id.about_menu);
+        assertNotExist(R.id.help_menu);
+
 
 
 

@@ -54,7 +54,7 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
         String url = null;
         if (multimedia.size() != 0) {
             for (Article.Multimedium multimedium : multimedia) {
-                if (multimedium.getSubType().equals("Thumbnail"))
+                if (multimedium.getSubType().equals("thumbnail"))
                     url = "https://static01.nyt.com/" + multimedium.getUrl();
             }
             requestManager.load(url).into(mImageView);

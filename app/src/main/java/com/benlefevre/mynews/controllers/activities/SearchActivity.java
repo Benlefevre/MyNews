@@ -1,6 +1,7 @@
 package com.benlefevre.mynews.controllers.activities;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
+import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
@@ -92,8 +94,14 @@ public class SearchActivity extends AppCompatActivity {
                     Toast.makeText(this, getString(R.string.query_term_empty), Toast.LENGTH_SHORT).show();
                 else if (mNbChecked == 0)
                     Toast.makeText(this, getString(R.string.checkbox_selected), Toast.LENGTH_SHORT).show();
-                else
-                    break;
+                else{
+                    Intent intent = new Intent(this,SearchResultActivity.class);
+                    intent.putExtra(Constants.QUERY,mQuery);
+                    intent.putExtra(Constants.FILTERQUERY,mFilterQueries);
+                    intent.putExtra(Constants.BEGINDATE,mBeginQuery);
+                    intent.putExtra(Constants.ENDDATE,mEndQuery);
+                    startActivity(intent);
+                }
         }
     }
 
