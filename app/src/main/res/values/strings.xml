@@ -23,4 +23,6 @@
     <string name="travel">Travel</string>
     <string name="enable_notification">Enable notification (once per day)</string>
     <string name="search">SEARCH</string>
+    <string name="query_term_empty">Query term can\'t be empty</string>
+    <string name="checkbox_selected">One checbox must be selected</string>
 </resources>

@@ -35,6 +35,18 @@ public class UtilsTest {
         initialDate = "2019-03-28";
 
         assertEquals("28/03/2019",Utils.convertDateForDisplay(initialDate));
+
+        initialDate = "1/1/2018";
+
+        assertEquals("01/01/2018",Utils.convertDateForDisplay(initialDate));
+
+        initialDate = "15/1/2018";
+
+        assertEquals("15/01/2018",Utils.convertDateForDisplay(initialDate));
+
+        initialDate = "1/12/2018";
+
+        assertEquals("01/12/2018",Utils.convertDateForDisplay(initialDate));
     }
 
 

@@ -1,13 +1,20 @@
 package com.benlefevre.mynews.controllers.activities;
 
+import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
+import com.benlefevre.mynews.utils.Utils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.checkbox.MaterialCheckBox;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.util.Calendar;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +22,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -41,6 +49,9 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.search_query_button)
     MaterialButton mSearchQueryButton;
 
+    private String mQuery;
+    private int mNbChecked;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +59,6 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         configureToolbar();
         mSwitchNotification.setVisibility(View.GONE);
-
     }
 
     /**
@@ -61,5 +71,66 @@ public class SearchActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null)
             actionBar.setDisplayHomeAsUpEnabled(true);
+    }
+
+
+    @OnClick({R.id.begin_date, R.id.end_date, R.id.search_query_button})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.begin_date:
+                displayDatePicker(0);
+                break;
+            case R.id.end_date:
+                displayDatePicker(1);
+                break;
+            case R.id.search_query_button:
+                configureQueries();
+                if (mQuery.isEmpty())
+                    Toast.makeText(this, getString(R.string.query_term_empty), Toast.LENGTH_SHORT).show();
+                else if (mNbChecked == 0)
+                    Toast.makeText(this, getString(R.string.checkbox_selected), Toast.LENGTH_SHORT).show();
+                else
+                    break;
+        }
+    }
+
+    /**
+     * Creates a DatePickerDialog with different Theme according to the build version. When user set a date in the DatePicker,
+     * the corresponding EditText is updated.
+     * @param tag A value to set the text in the correct EditText
+     */
+    private void displayDatePicker(int tag) {
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int style;
+        if(Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
+            style = R.style.Theme_AppCompat_DayNight_Dialog;
+        else
+            style = R.style.Theme_MaterialComponents_Light_Dialog;
+        DatePickerDialog dialog = new DatePickerDialog(this, style, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String date = dayOfMonth + "/" + (month + 1) + "/" + year;
+                switch (tag){
+                    case 0:
+                        mBeginDate.setText(Utils.convertDateForDisplay(date));
+                        break;
+                    case 1:
+                        mEndDate.setText(Utils.convertDateForDisplay(date));
+                        break;
+                }
+            }
+        },year,month,day);
+        dialog.show();
+    }
+
+    /**
+     * Configures all needed queries to the http request to NyTimes Search API
+     */
+    private void configureQueries() {
+        mQuery = mQueryTerm.getText().toString();
+        mNbChecked = 0;
     }
 }
