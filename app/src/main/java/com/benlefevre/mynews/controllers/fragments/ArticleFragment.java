@@ -51,7 +51,6 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
 
     /**
      * A factory to create new ArticleFragment with its position in the ViewPager saved in args
-     *
      * @param position the ArticleFragment's position in the ViewPager
      * @return the new fragment with its position saved in args
      */
@@ -123,7 +122,6 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
 
     /**
      * Executes the correct http request according to the ArticleFragment's position in the ViewPager
-     *
      * @param position ArticleFragment's position in the ViewPager
      */
     private void executeHttpRequestAccordindToPosition(int position) {
