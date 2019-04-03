@@ -47,6 +47,20 @@ public class Utils {
             return initialTitle;
     }
 
+    public static String convertDateForQuery(String initialDate) {
+        SimpleDateFormat initialFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat formattedFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        if (initialDate.matches("\\d{2}/\\d{2}/\\d{4}$")) {
+            try {
+                Date date = initialFormat.parse(initialDate);
+                initialDate = formattedFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return initialDate;
+    }
+
     public static String configureFilterQueries(MaterialCheckBox cb1, MaterialCheckBox cb2, MaterialCheckBox cb3, MaterialCheckBox cb4, MaterialCheckBox cb5, MaterialCheckBox cb6) {
         String filterQuery = "(";
         if (cb1.isChecked())
@@ -65,17 +79,5 @@ public class Utils {
         return filterQuery;
     }
 
-    public static String convertDateForQuery(String initialDate) {
-        SimpleDateFormat initialFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat formattedFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
-        if (initialDate.matches("\\d{2}/\\d{2}/\\d{4}$")) {
-            try {
-                Date date = initialFormat.parse(initialDate);
-                initialDate = formattedFormat.format(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return initialDate;
-    }
+
 }

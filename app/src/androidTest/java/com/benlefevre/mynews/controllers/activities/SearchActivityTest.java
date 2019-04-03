@@ -3,6 +3,7 @@ package com.benlefevre.mynews.controllers.activities;
 import android.view.View;
 
 import com.benlefevre.mynews.R;
+import com.schibsted.spain.barista.interaction.BaristaSwipeRefreshInteractions;
 import com.schibsted.spain.barista.rule.cleardata.ClearPreferencesRule;
 
 import org.junit.Before;
@@ -18,9 +19,13 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.schibsted.spain.barista.assertion.BaristaCheckedAssertions.assertChecked;
 import static com.schibsted.spain.barista.assertion.BaristaHintAssertions.assertHint;
+import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertCustomAssertionAtPosition;
+import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertDisplayedAtPosition;
+import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertListNotEmpty;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertContains;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed;
@@ -97,6 +102,13 @@ public class SearchActivityTest {
         assertNotExist(R.id.notification_menu);
         assertNotExist(R.id.about_menu);
         assertNotExist(R.id.help_menu);
+        assertDisplayed(R.id.search_result_swipe_layout);
+        BaristaSwipeRefreshInteractions.refresh();
+        assertDisplayed(R.id.search_result_recycler_view);
+        assertListNotEmpty(R.id.search_result_recycler_view);
+
+
+
 
 
 

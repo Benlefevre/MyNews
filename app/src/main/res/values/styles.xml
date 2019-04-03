@@ -4,25 +4,19 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorOnPrimary">@color/onPrimary</item>
+        <item name="colorOnPrimary">@color/colorOnPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/background</item>
-        <item name="colorOnBackground">@color/onBackground</item>
-        <item name="colorSurface">@color/surface</item>
-        <item name="colorOnSurface">@color/onSurface</item>
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
         <item name="materialButtonStyle">@style/Widget.MyNews.MyButton</item>
-
     </style>
     
     <style name="Widget.MyNews.MyButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="backgroundTint">?attr/colorPrimary</item>
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
-        <item name="android:textColor">@color/onPrimary</item>
+        <item name="android:textColor">@color/colorOnPrimary</item>
     </style>
-
-
-
-
-
 </resources>
