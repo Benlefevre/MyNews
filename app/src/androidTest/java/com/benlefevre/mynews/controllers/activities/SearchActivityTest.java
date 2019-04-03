@@ -29,6 +29,7 @@ import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.c
 import static com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo;
 import static com.schibsted.spain.barista.interaction.BaristaKeyboardInteractions.closeKeyboard;
 import static com.schibsted.spain.barista.interaction.BaristaPickerInteractions.setDateOnPicker;
+import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 import static org.hamcrest.Matchers.not;
 
 
@@ -75,6 +76,7 @@ public class SearchActivityTest {
         assertDisplayed(R.id.checkbox_business);
         clickOn(R.id.search_query_button);
         onView(withText(R.string.query_term_empty)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
+        sleep(1500);
         writeTo(R.id.query_term,"nba");
         assertContains(R.id.query_term,"nba");
         closeKeyboard();
