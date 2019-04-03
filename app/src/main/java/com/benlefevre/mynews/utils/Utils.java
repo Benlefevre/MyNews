@@ -24,7 +24,8 @@ public class Utils {
             initialDate = convertFormat.format(initial);
             return initialDate;
         }
-        if (!initialDate.matches("\\d{4}-\\d{2}-\\d{2}\\w\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}$") && !initialDate.matches("\\d{4}-\\d{2}-\\d{2}$"))
+        if (!initialDate.matches("\\d{4}-\\d{2}-\\d{2}\\w\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}$") && !initialDate.matches("\\d{4}-\\d{2}-\\d{2}$")
+                && !initialDate.matches("\\d{4}-\\d{2}-\\d{2}\\w\\d{2}:\\d{2}:\\d{2}\\S\\d{4}"))
             return "This is not a correct date";
         else {
             try {
@@ -62,5 +63,19 @@ public class Utils {
             filterQuery += "\"travel\" ";
         filterQuery += ")";
         return filterQuery;
+    }
+
+    public static String convertDateForQuery(String initialDate) {
+        SimpleDateFormat initialFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        SimpleDateFormat formattedFormat = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        if (initialDate.matches("\\d{2}/\\d{2}/\\d{4}$")) {
+            try {
+                Date date = initialFormat.parse(initialDate);
+                initialDate = formattedFormat.format(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return initialDate;
     }
 }

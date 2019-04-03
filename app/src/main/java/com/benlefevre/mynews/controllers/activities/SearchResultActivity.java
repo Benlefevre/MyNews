@@ -10,6 +10,7 @@ import com.benlefevre.mynews.adapters.ArticleAdapter;
 import com.benlefevre.mynews.models.Article;
 import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.NyTimesStream;
+import com.benlefevre.mynews.utils.Utils;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -93,12 +94,12 @@ public class SearchResultActivity extends AppCompatActivity {
         String endDate = null;
         if (!intent.getStringExtra(Constants.BEGINDATE).isEmpty()) {
             //TODO ajouter une methode pour convertir le format de la date pour la requete
-            beginDate = intent.getStringExtra(Constants.BEGINDATE);
+            beginDate = Utils.convertDateForQuery(intent.getStringExtra(Constants.BEGINDATE));
             mQueries.put("begin_date", beginDate);
         }
         if (!intent.getStringExtra(Constants.ENDDATE).isEmpty()) {
             //TODO ajouter une methode pour convertir le format de la date pour la requete
-            endDate = intent.getStringExtra(Constants.ENDDATE);
+            endDate = Utils.convertDateForQuery(intent.getStringExtra(Constants.ENDDATE));
             mQueries.put("end_date", endDate);
         }
 
