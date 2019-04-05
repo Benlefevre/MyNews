@@ -16,15 +16,14 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.RootMatchers.withDecorView;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.schibsted.spain.barista.assertion.BaristaCheckedAssertions.assertChecked;
 import static com.schibsted.spain.barista.assertion.BaristaHintAssertions.assertHint;
-import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertCustomAssertionAtPosition;
-import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertDisplayedAtPosition;
 import static com.schibsted.spain.barista.assertion.BaristaListAssertions.assertListNotEmpty;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertContains;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed;
@@ -105,8 +104,18 @@ public class SearchActivityTest {
         assertDisplayed(R.id.search_result_swipe_layout);
         BaristaSwipeRefreshInteractions.refresh();
         assertDisplayed(R.id.search_result_recycler_view);
+        sleep(1000);
         assertListNotEmpty(R.id.search_result_recycler_view);
-
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
+        writeTo(R.id.query_term,"eeeeeeeeeeeeeeeeeeeeee");
+        clickOn(R.id.checkbox_sport);
+        clickOn(R.id.checkbox_travel);
+        clickOn(R.id.checkbox_entrepreneurs);
+        clickOn(R.id.checkbox_business);
+        clickOn(R.id.checkbox_arts);
+        clickOn(R.id.checkbox_politics);
+        clickOn(R.id.search_query_button);
+        onView(withText(R.string.no_result_search)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
 
 
 

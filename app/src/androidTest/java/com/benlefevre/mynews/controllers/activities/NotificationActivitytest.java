@@ -93,5 +93,11 @@ public class NotificationActivitytest {
         assertContains(R.id.query_term,"nba");
         assertChecked(R.id.checkbox_sport);
         assertChecked(R.id.switch_notification);
+        clickOn(R.id.switch_notification);
+        onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
+        clickMenu(R.id.notification_menu);
+        assertHint(R.id.query_term, R.string.search_query_term_hint);
+        assertUnchecked(R.id.checkbox_sport);
+        assertUnchecked(R.id.switch_notification);
     }
 }

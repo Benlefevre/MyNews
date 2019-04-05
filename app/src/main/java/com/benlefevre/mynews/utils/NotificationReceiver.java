@@ -34,6 +34,11 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     }
 
+    /**
+     * Gets the IntentExtra to build the needed map to fetch result to Search API.
+     * Subscribes to the Observable returned by NyTimesStream method and send a notification to user if
+     * there is results matched user's queries.
+     */
     private void executeSearchHttpRequest() {
         String query = mIntent.getStringExtra(Constants.QUERY);
         String filterQuery = mIntent.getStringExtra(Constants.FILTERQUERY);

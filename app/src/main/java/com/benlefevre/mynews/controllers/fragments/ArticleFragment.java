@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
 import com.benlefevre.mynews.models.Article;
+import com.benlefevre.mynews.utils.ItemClickSupport;
 import com.benlefevre.mynews.utils.NyTimesStream;
 import com.bumptech.glide.Glide;
 
@@ -25,15 +27,14 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
+import static com.benlefevre.mynews.utils.Constants.MOSTPOPULAR;
+import static com.benlefevre.mynews.utils.Constants.POSITION;
+import static com.benlefevre.mynews.utils.Constants.TOPSTORIES;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ArticleFragment extends androidx.fragment.app.Fragment {
-
-    private static final String POSITION = "position";
-    private static final int TOPSTORIES = 1;
-    private static final int MOSTPOPULAR = 2;
-
 
     @BindView(R.id.article_fragment_recycler_view)
     RecyclerView mArticleFragmentRecyclerView;
@@ -79,6 +80,7 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
         executeHttpRequestAccordindToPosition(position);
         configureSwipeRefreshLayout();
         configureRecyclerView();
+        configureOnClickItemRecyclerView();
         return view;
     }
 
@@ -216,6 +218,19 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
                     @Override
                     public void onComplete() {
 
+                    }
+                });
+    }
+
+    /**
+     * Adds to the RecyclerView the support of the user's item click.
+     */
+    private void configureOnClickItemRecyclerView(){
+        ItemClickSupport.addTo(mArticleFragmentRecyclerView,R.id.item_layout)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Toast.makeText(getContext(),"click",Toast.LENGTH_SHORT).show();
                     }
                 });
     }

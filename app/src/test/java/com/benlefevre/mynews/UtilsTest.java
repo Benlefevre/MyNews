@@ -1,6 +1,6 @@
 package com.benlefevre.mynews;
 
-import com.benlefevre.mynews.controllers.activities.SearchActivity;
+import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.Utils;
 import com.google.android.material.checkbox.MaterialCheckBox;
 
@@ -102,5 +102,29 @@ public class UtilsTest {
         when(cb5.isChecked()).thenReturn(true);
         when(cb6.isChecked()).thenReturn(true);
         assertEquals("(\"arts\" \"business\" \"politics\" \"sport\" \"entrepreneurs\" \"travel\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+    }
+
+    @Test
+    public void constantReturnsTest(){
+        assertEquals("position",Constants.POSITION);
+        assertEquals(1,Constants.TOPSTORIES);
+        assertEquals(2,Constants.MOSTPOPULAR);
+
+        assertEquals("channel", Constants.CHANNEL_ID);
+        assertEquals("preferences",Constants.PREFERENCES);
+        assertEquals("query",Constants.QUERY);
+        assertEquals("filterQuery",Constants.FILTERQUERY);
+        assertEquals("beginDate",Constants.BEGINDATE);
+        assertEquals("endDate",Constants.ENDDATE);
+
+        assertEquals("switch",Constants.SWITCH);
+        assertEquals("arts",Constants.ARTS);
+        assertEquals("sport",Constants.SPORT);
+        assertEquals("travel",Constants.TRAVEL);
+        assertEquals("entrepreneurs",Constants.ENTREPRENEURS);
+        assertEquals("business",Constants.BUSINESS);
+        assertEquals("politics",Constants.POLITICS);
+
+
     }
 }

@@ -84,7 +84,7 @@ public class MyNews extends Application {
     }
 
     /**
-     *  Creates NotificationChannel needed because the target android os is 28. Without NotificationChannel,
+     *  Creates the needed NotificationChannel because the target android os is 28. Without the NotificationChannel,
      *  it's impossible to send notification to the user if the android os is >= 26.
      */
     protected void createNotificationChannel() {

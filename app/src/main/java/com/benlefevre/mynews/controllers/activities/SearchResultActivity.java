@@ -4,11 +4,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
 import com.benlefevre.mynews.models.Article;
 import com.benlefevre.mynews.utils.Constants;
+import com.benlefevre.mynews.utils.ItemClickSupport;
 import com.benlefevre.mynews.utils.NyTimesStream;
 import com.benlefevre.mynews.utils.Utils;
 import com.bumptech.glide.Glide;
@@ -53,6 +56,7 @@ public class SearchResultActivity extends AppCompatActivity {
         configureToolBar();
         configureSwipeRefreshLayout();
         configureRecyclerView();
+        configureOnClickItemRecyclerView();
         executeSearchHttpRequest();
     }
 
@@ -153,7 +157,7 @@ public class SearchResultActivity extends AppCompatActivity {
     private void displayAlertDialogIfNoResult() {
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext);
         builder.setTitle("Sorry")
-                .setMessage("There is no news matched your search. Please, modify your search and try again")
+                .setMessage(getString(R.string.no_result_search))
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -161,6 +165,19 @@ public class SearchResultActivity extends AppCompatActivity {
                     }
                 });
         builder.show();
+    }
+
+    /**
+     * Adds to the RecyclerView the support of the user's item click.
+     */
+    private void configureOnClickItemRecyclerView(){
+        ItemClickSupport.addTo(mSearchResultRecyclerView,R.id.item_layout)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        Toast.makeText(SearchResultActivity.this,"click",Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
