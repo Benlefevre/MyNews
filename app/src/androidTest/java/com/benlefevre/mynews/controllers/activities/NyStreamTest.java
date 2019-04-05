@@ -7,7 +7,6 @@ import android.net.NetworkInfo;
 import com.benlefevre.mynews.models.Article;
 import com.benlefevre.mynews.utils.NyTimesStream;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

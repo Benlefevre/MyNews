@@ -137,7 +137,7 @@ public class NotificationActivity extends AppCompatActivity {
     /**
      * Verifies if one CheckBox is checked before send an intent.
      */
-    public void verifyIfOneCheckboxIsChecked() {
+    private void verifyIfOneCheckboxIsChecked() {
         if (mCheckboxArts.isChecked())
             mNbChecked++;
         if (mCheckboxBusiness.isChecked())

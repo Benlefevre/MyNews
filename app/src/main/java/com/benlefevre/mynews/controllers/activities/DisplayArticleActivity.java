@@ -13,7 +13,7 @@ import static com.benlefevre.mynews.utils.Constants.URL;
 
 public class DisplayArticleActivity extends AppCompatActivity {
 
-    WebView mWebview;
+    private WebView mWebview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

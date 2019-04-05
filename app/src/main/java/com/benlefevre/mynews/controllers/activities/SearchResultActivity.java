@@ -111,8 +111,8 @@ public class SearchResultActivity extends AppCompatActivity {
         mQueries.put("q", query);
         String filterQuery = intent.getStringExtra(Constants.FILTERQUERY);
         mQueries.put("fq", filterQuery);
-        String beginDate = null;
-        String endDate = null;
+        String beginDate;
+        String endDate;
         if (!intent.getStringExtra(Constants.BEGINDATE).isEmpty()) {
             beginDate = Utils.convertDateForQuery(intent.getStringExtra(Constants.BEGINDATE));
             mQueries.put("begin_date", beginDate);

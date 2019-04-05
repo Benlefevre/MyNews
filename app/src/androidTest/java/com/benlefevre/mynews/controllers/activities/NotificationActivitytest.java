@@ -41,7 +41,7 @@ public class NotificationActivitytest {
     private View mDecorView;
 
     @Rule
-    public ActivityScenarioRule<NotificationActivity> mNotificationActivityActivityScenarioRule = new ActivityScenarioRule<NotificationActivity>(NotificationActivity.class);
+    public ActivityScenarioRule<NotificationActivity> mNotificationActivityActivityScenarioRule = new ActivityScenarioRule<>(NotificationActivity.class);
     @Rule
     public ClearPreferencesRule mClearPreferencesRule = new ClearPreferencesRule();
 

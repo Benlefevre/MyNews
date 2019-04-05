@@ -13,7 +13,6 @@ import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
 import com.benlefevre.mynews.controllers.activities.DisplayArticleActivity;
 import com.benlefevre.mynews.models.Article;
-import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.ItemClickSupport;
 import com.benlefevre.mynews.utils.NyTimesStream;
 import com.bumptech.glide.Glide;

@@ -40,7 +40,7 @@ public class MyNews extends Application {
     /**
      * Allows to use the TLS with android os < 21 because The NyTimes API doesn't support the SSLv3
      */
-    protected void checkTls() {
+    private void checkTls() {
         if (android.os.Build.VERSION.SDK_INT < 21) {
             try {
                 ProviderInstaller.installIfNeededAsync(this, new ProviderInstaller.ProviderInstallListener() {
@@ -72,7 +72,7 @@ public class MyNews extends Application {
     /**
      * Checks if the network access is OK else displays a toast to inform user
      */
-    protected void internetConnectivityTest() {
+    private void internetConnectivityTest() {
         ConnectivityManager cm =
                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -87,7 +87,7 @@ public class MyNews extends Application {
      *  Creates the needed NotificationChannel because the target android os is 28. Without the NotificationChannel,
      *  it's impossible to send notification to the user if the android os is >= 26.
      */
-    protected void createNotificationChannel() {
+    private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "channel1", NotificationManager.IMPORTANCE_DEFAULT);
             notificationChannel.setDescription("This is channel 1");
