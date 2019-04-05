@@ -1,10 +1,13 @@
 package com.benlefevre.mynews;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.widget.Toast;
 
 import com.google.android.gms.security.ProviderInstaller;
@@ -15,6 +18,8 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
+
+import static com.benlefevre.mynews.utils.Constants.CHANNEL_ID;
 
 public class MyNews extends Application {
 
@@ -29,8 +34,7 @@ public class MyNews extends Application {
         LeakCanary.install(this);
         internetConnectivityTest();
         checkTls();
-
-
+        createNotificationChannel();
     }
 
     /**
@@ -68,7 +72,7 @@ public class MyNews extends Application {
     /**
      * Checks if the network access is OK else displays a toast to inform user
      */
-    public void internetConnectivityTest() {
+    protected void internetConnectivityTest() {
         ConnectivityManager cm =
                 (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -76,6 +80,20 @@ public class MyNews extends Application {
                 activeNetwork.isConnectedOrConnecting();
         if (!isConnected){
             Toast.makeText(getApplicationContext(), "Network access is necessary to fetch the NyTimes's news", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     *  Creates NotificationChannel needed because the target android os is 28. Without NotificationChannel,
+     *  it's impossible to send notification to the user if the android os is >= 26.
+     */
+    protected void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "channel1", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription("This is channel 1");
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(notificationChannel);
         }
     }
 }

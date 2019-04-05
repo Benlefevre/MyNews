@@ -184,6 +184,10 @@ public class NotificationActivity extends AppCompatActivity {
         saveInSharedPreferencesQueryParameters();
     }
 
+    /**
+     * Starts the AlarmManager's repeating when user turn on the notification's switch and stop it when
+     * user turn off the switch.
+     */
     private void configureAlarmQuery() {
         configureAlarmManager();
         if (mSwitchNotification.isChecked())
@@ -192,6 +196,9 @@ public class NotificationActivity extends AppCompatActivity {
             stopAlarm();
     }
 
+    /**
+     * Sets mPendingIntent to use intent defined here with the NotificationReceiver.class.
+     */
     private void configureAlarmManager() {
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra(QUERY, mQuery);
@@ -199,6 +206,9 @@ public class NotificationActivity extends AppCompatActivity {
         mPendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
+    /**
+     * Configures the AlarmManager to repeat at 12:00 every day
+     */
     private void startAlarm() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 12);
@@ -206,8 +216,13 @@ public class NotificationActivity extends AppCompatActivity {
         calendar.set(Calendar.SECOND, 0);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, mPendingIntent);
+//        for test notification:
+//        alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,0,1*60*1000,mPendingIntent);
     }
 
+    /**
+     * Stop the AlarmManager's repeating
+     */
     private void stopAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(mPendingIntent);

@@ -9,7 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 public class PageAdapter extends FragmentStatePagerAdapter {
-
+    
     public PageAdapter(@NonNull FragmentManager fm) {
         super(fm);
     }

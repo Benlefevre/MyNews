@@ -26,4 +26,5 @@
     <string name="query_term_empty">Query term can\'t be empty</string>
     <string name="checkbox_selected">One checbox must be selected</string>
     <string name="result_search_toolbar_title">Search\'s results</string>
+    <string name="have_a_good_news">We have a good news for you</string>
 </resources>
