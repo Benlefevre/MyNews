@@ -15,6 +15,7 @@ import com.benlefevre.mynews.controllers.activities.DisplayArticleActivity;
 import com.benlefevre.mynews.models.Article;
 import com.benlefevre.mynews.utils.ItemClickSupport;
 import com.benlefevre.mynews.utils.NyTimesStream;
+import com.benlefevre.mynews.utils.Utils;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
+import static com.benlefevre.mynews.utils.Constants.ID;
 import static com.benlefevre.mynews.utils.Constants.MOSTPOPULAR;
 import static com.benlefevre.mynews.utils.Constants.POSITION;
 import static com.benlefevre.mynews.utils.Constants.TOPSTORIES;
@@ -233,9 +235,9 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Toast.makeText(getContext(),"click",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), DisplayArticleActivity.class);
                         intent.putExtra(URL,mArticleAdapter.getUrl(position));
+                        intent.putExtra(ID, Utils.convertTitleToId(mArticleAdapter.getTitle(position)));
                         startActivity(intent);
                     }
                 });

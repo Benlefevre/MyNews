@@ -19,4 +19,7 @@
         <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Subtitle2</item>
         <item name="android:textColor">@color/colorOnPrimary</item>
     </style>
+
+    <style name="MyNewsDatePicker" parent="ThemeOverlay.MaterialComponents.DatePicker"/>
+
 </resources>

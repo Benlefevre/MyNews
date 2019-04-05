@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
+import static com.benlefevre.mynews.utils.Constants.ID;
 import static com.benlefevre.mynews.utils.Constants.URL;
 
 public class SearchResultActivity extends AppCompatActivity {
@@ -177,9 +178,9 @@ public class SearchResultActivity extends AppCompatActivity {
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        Toast.makeText(SearchResultActivity.this,"click",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SearchResultActivity.this,DisplayArticleActivity.class);
                         intent.putExtra(URL,mArticleAdapter.getUrl(position));
+                        intent.putExtra(ID,Utils.convertTitleToId(mArticleAdapter.getTitle(position)));
                         startActivity(intent);
                     }
                 });

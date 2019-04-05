@@ -8,5 +8,6 @@
     <color name="colorOnPrimary">#000000</color>
     <color name="colorOnSurface">#000000</color>
     <color name="colorOnBackground">#000000</color>
+    <color name="colorReadArticle">#2500E2FF</color>
 
 </resources>

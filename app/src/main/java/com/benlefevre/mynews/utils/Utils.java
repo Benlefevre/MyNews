@@ -80,4 +80,8 @@ public class Utils {
     }
 
 
+    public static String convertTitleToId(String initialtitle) {
+        String substring = initialtitle.substring(0, 20);
+        return substring;
+    }
 }

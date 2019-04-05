@@ -105,8 +105,15 @@ public class UtilsTest {
     }
 
     @Test
+    public void convertTitleToIdTest(){
+        String initialtitle = "Ethiopian Crash Report Indicates Pilots Followed Boeing’s Emergency Procedures";
+        assertEquals("Ethiopian Crash Repo",Utils.convertTitleToId(initialtitle));
+    }
+
+    @Test
     public void constantReturnsTest(){
         assertEquals("url",Constants.URL);
+        assertEquals("id",Constants.ID);
 
         assertEquals("position",Constants.POSITION);
         assertEquals(1,Constants.TOPSTORIES);

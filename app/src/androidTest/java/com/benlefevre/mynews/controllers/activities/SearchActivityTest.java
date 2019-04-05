@@ -32,6 +32,8 @@ import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.
 import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn;
 import static com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo;
 import static com.schibsted.spain.barista.interaction.BaristaKeyboardInteractions.closeKeyboard;
+import static com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem;
+import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions.clickMenu;
 import static com.schibsted.spain.barista.interaction.BaristaPickerInteractions.setDateOnPicker;
 import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 import static org.hamcrest.Matchers.not;
@@ -106,7 +108,10 @@ public class SearchActivityTest {
         assertDisplayed(R.id.search_result_recycler_view);
         sleep(1000);
         assertListNotEmpty(R.id.search_result_recycler_view);
+        clickListItem(R.id.search_result_recycler_view,0);
+        assertDisplayed(R.string.webviewToolbarTitle);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
+        clickMenu(R.id.activity_main_search_menu);
         writeTo(R.id.query_term,"eeeeeeeeeeeeeeeeeeeeee");
         clickOn(R.id.checkbox_sport);
         clickOn(R.id.checkbox_travel);

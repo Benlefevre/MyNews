@@ -117,10 +117,10 @@ public class SearchActivity extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
         int style;
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M)
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP)
             style = R.style.Theme_AppCompat_DayNight_Dialog;
         else
-            style = R.style.Theme_MaterialComponents_Light_Dialog;
+            style = R.style.MyNewsDatePicker;
         DatePickerDialog dialog = new DatePickerDialog(this, style, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

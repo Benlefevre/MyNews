@@ -23,4 +23,5 @@ public class Constants {
     public static final String TRAVEL = "travel";
     public static final String ENTREPRENEURS = "entrepreneurs";
     public static final String URL = "url";
+    public static final String ID = "id";
 }
