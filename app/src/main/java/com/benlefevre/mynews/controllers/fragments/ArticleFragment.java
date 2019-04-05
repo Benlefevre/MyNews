@@ -2,6 +2,7 @@ package com.benlefevre.mynews.controllers.fragments;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
+import com.benlefevre.mynews.controllers.activities.DisplayArticleActivity;
 import com.benlefevre.mynews.models.Article;
+import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.ItemClickSupport;
 import com.benlefevre.mynews.utils.NyTimesStream;
 import com.bumptech.glide.Glide;
@@ -30,6 +33,7 @@ import io.reactivex.observers.DisposableObserver;
 import static com.benlefevre.mynews.utils.Constants.MOSTPOPULAR;
 import static com.benlefevre.mynews.utils.Constants.POSITION;
 import static com.benlefevre.mynews.utils.Constants.TOPSTORIES;
+import static com.benlefevre.mynews.utils.Constants.URL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -231,6 +235,9 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         Toast.makeText(getContext(),"click",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getActivity(), DisplayArticleActivity.class);
+                        intent.putExtra(URL,mArticleAdapter.getUrl(position));
+                        startActivity(intent);
                     }
                 });
     }

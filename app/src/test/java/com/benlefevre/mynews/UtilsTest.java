@@ -106,6 +106,8 @@ public class UtilsTest {
 
     @Test
     public void constantReturnsTest(){
+        assertEquals("url",Constants.URL);
+
         assertEquals("position",Constants.POSITION);
         assertEquals(1,Constants.TOPSTORIES);
         assertEquals(2,Constants.MOSTPOPULAR);

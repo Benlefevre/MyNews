@@ -13,11 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controllers.activities.SearchResultActivity"
+        <activity android:name=".controllers.activities.DisplayArticleActivity"
+            android:parentActivityName=".controllers.activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".controllers.activities.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".controllers.activities.SearchResultActivity"
             android:parentActivityName=".controllers.activities.SearchActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".controllers.activities.SearchActivity"/>
+                android:value=".controllers.activities.SearchActivity" />
         </activity>
         <activity
             android:name=".controllers.activities.NotificationActivity"
@@ -41,8 +48,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".utils.NotificationReceiver"
-            android:exported="true"/>
+        <receiver
+            android:name=".utils.NotificationReceiver"
+            android:exported="true" />
     </application>
 
 </manifest>

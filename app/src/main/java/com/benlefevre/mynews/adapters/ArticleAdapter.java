@@ -22,6 +22,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private RequestManager mRequestManager;
     private int mTypeOfArticle;
 
+//    We have 2 ArticleAdapter's constructor to match the Http request used.
+//    If we use TopStories and MostPopular requests, we need typeOfArticle because image's paths
+//    are different.
     public ArticleAdapter(List<Article.Result> resultList, RequestManager requestManager, int typeOfArticle) {
         mResultList = resultList;
         mRequestManager = requestManager;
@@ -44,6 +47,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
+//        According to the mTypeOfArticle's value, we call holder's method to update the UI
         if(mTypeOfArticle!=0)
             holder.updateUi(mResultList.get(position),mRequestManager);
         else
@@ -57,4 +61,18 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
         else
             return mDocList.size();
     }
+
+    /**
+     * Returns the url of the user's selected item.
+     * @param position the item's position in the RecyclerView
+     * @return the selected item's url
+     */
+    public String getUrl(int position){
+        if(mTypeOfArticle !=0)
+            return mResultList.get(position).getUrl();
+        else
+            return mDocList.get(position).getWebUrl();
+    }
+
+
 }
