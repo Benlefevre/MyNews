@@ -56,13 +56,17 @@ public class NotificationActivitytest {
     }
 
     @Test
-    public void NotificationActivityTest(){
+    public void toolbarNotificationActivityTest(){
         assertDisplayed(R.id.toolbar);
         assertDisplayed(R.string.notificationToolBarTitle);
         assertNotExist(R.id.activity_main_search_menu);
         assertNotExist(R.id.notification_menu);
         assertNotExist(R.id.about_menu);
         assertNotExist(R.id.help_menu);
+    }
+
+    @Test
+    public void layoutNotificationActivityTest(){
         assertNotDisplayed(R.id.dates);
         assertNotDisplayed(R.id.end_date);
         assertNotDisplayed(R.id.begin_date);
@@ -76,17 +80,27 @@ public class NotificationActivitytest {
         assertDisplayed(R.id.checkbox_entrepreneurs);
         assertDisplayed(R.id.checkbox_business);
         assertDisplayed(R.id.switch_notification);
+    }
+
+    @Test
+    public void displayToastNotificationActivityTest(){
         clickOn(R.id.switch_notification);
         onView(withText(R.string.query_term_empty)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
         assertUnchecked(R.id.switch_notification);
-        sleep(2500);
+        sleep(1500);
         writeTo(R.id.query_term,"nba");
         closeKeyboard();
         clickOn(R.id.switch_notification);
         onView(withText(R.string.checkbox_selected)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
         assertUnchecked(R.id.switch_notification);
+    }
+
+    @Test
+    public void NotificationActivityTest() {
+        writeTo(R.id.query_term, "nba");
         clickOn(R.id.checkbox_sport);
         clickOn(R.id.switch_notification);
+        assertChecked(R.id.switch_notification);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
         assertDisplayed(R.string.app_name);
         clickMenu(R.id.notification_menu);

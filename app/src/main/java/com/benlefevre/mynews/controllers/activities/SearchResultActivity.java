@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
@@ -194,5 +193,15 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onDestroy();
         if (mDisposable != null && !mDisposable.isDisposed())
             mDisposable.dispose();
+    }
+
+    /**
+     * Notifies to the adapter that data have changed to change the item's layout background color
+     * when user clicks back in DisplayArticleActivity.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        mArticleAdapter.notifyDataSetChanged();
     }
 }

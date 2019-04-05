@@ -27,6 +27,7 @@ import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.c
 import static com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem;
 import static com.schibsted.spain.barista.interaction.BaristaListInteractions.scrollListToPosition;
 import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions.clickMenu;
+import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 import static org.hamcrest.Matchers.allOf;
 
 @LargeTest
@@ -39,13 +40,17 @@ public class MainActivityTest {
     public ClearPreferencesRule mClearPreferencesRule = new ClearPreferencesRule();
 
     @Test
-    public void mainActivityTest() {
+    public void toolbarMainActivityTest(){
         assertDisplayed(R.id.toolbar);
         assertDisplayed(R.string.app_name);
         assertDisplayed(R.id.activity_main_search_menu);
         assertNotExist(R.id.notification_menu);
         assertNotExist(R.id.about_menu);
         assertNotExist(R.id.help_menu);
+    }
+
+    @Test
+    public void menuMainActivityTest(){
         clickMenu(R.id.activity_main_search_menu);
         assertDisplayed(R.id.toolbar);
         assertDisplayed(R.string.searchToolbarTitle);
@@ -56,26 +61,43 @@ public class MainActivityTest {
         assertDisplayed(R.string.notificationToolBarTitle);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
         assertDisplayed(R.string.app_name);
+    }
+
+    @Test
+    public void viewPagerAndTablayoutMainActivityTest(){
         assertDisplayed(R.id.activity_main_tablayout);
         assertDisplayed(R.id.activity_main_viewpager);
         assertDisplayed(R.string.topstories);
         assertDisplayed(R.string.mostpopular);
         assertDisplayed(R.string.automobiles);
+        onView(allOf(withText(R.string.topstories), isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+        swipeLeft();
+        onView(allOf(withText(R.string.mostpopular), isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+        swipeLeft();
+        onView(allOf(withText(R.string.automobiles), isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+    }
+
+    @Test
+    public void mainActivityTest() {
+        sleep(1500);
+        assertDisplayed(R.id.article_fragment_recycler_view);
+        swipeLeft();
+        assertDisplayed(R.id.article_fragment_recycler_view);
+        swipeLeft();
         assertDisplayed(R.id.article_fragment_recycler_view);
         assertListNotEmpty(R.id.article_fragment_recycler_view);
         scrollListToPosition(R.id.article_fragment_recycler_view, 5);
-        swipeLeft();
-        onView(allOf(withText(R.string.mostpopular), isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+        clickOn(R.string.mostpopular);
         assertDisplayed(R.id.article_fragment_recycler_view);
         assertListNotEmpty(R.id.article_fragment_recycler_view);
         scrollListToPosition(R.id.article_fragment_recycler_view, 15);
-        swipeLeft();
-        onView(allOf(withText(R.string.automobiles), isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+        clickOn(R.string.topstories);
         assertDisplayed(R.id.article_fragment_recycler_view);
         assertListNotEmpty(R.id.article_fragment_recycler_view);
         scrollListToPosition(R.id.article_fragment_recycler_view, 10);
-        clickOn(R.string.topstories);
-        onView(allOf(withText(R.string.topstories), isDescendantOfA(withId(R.id.activity_main_tablayout)))).perform(click()).check(matches(isSelected()));
+
+
+        // WebView tests
         clickListItem(R.id.article_fragment_recycler_view, 0);
         assertDisplayed(R.string.webviewToolbarTitle);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());

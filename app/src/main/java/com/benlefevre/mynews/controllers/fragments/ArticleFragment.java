@@ -252,5 +252,15 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
         if (mDisposable != null && !mDisposable.isDisposed())
             mDisposable.dispose();
     }
+
+    /**
+     * Notifies to the adapter that data have changed to change the item's layout background color
+     * when user clicks back in DisplayArticleActivity.
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        mArticleAdapter.notifyDataSetChanged();
+    }
 }
 

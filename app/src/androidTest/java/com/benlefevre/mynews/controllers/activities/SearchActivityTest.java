@@ -29,11 +29,11 @@ import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertDisplayed;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotDisplayed;
 import static com.schibsted.spain.barista.assertion.BaristaVisibilityAssertions.assertNotExist;
+import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickBack;
 import static com.schibsted.spain.barista.interaction.BaristaClickInteractions.clickOn;
 import static com.schibsted.spain.barista.interaction.BaristaEditTextInteractions.writeTo;
 import static com.schibsted.spain.barista.interaction.BaristaKeyboardInteractions.closeKeyboard;
 import static com.schibsted.spain.barista.interaction.BaristaListInteractions.clickListItem;
-import static com.schibsted.spain.barista.interaction.BaristaMenuClickInteractions.clickMenu;
 import static com.schibsted.spain.barista.interaction.BaristaPickerInteractions.setDateOnPicker;
 import static com.schibsted.spain.barista.interaction.BaristaSleepInteractions.sleep;
 import static org.hamcrest.Matchers.not;
@@ -59,13 +59,17 @@ public class SearchActivityTest {
     }
 
     @Test
-    public void searchActivityTest(){
+    public void toolbarSearchActivityTest(){
         assertDisplayed(R.id.toolbar);
         assertDisplayed(R.string.searchToolbarTitle);
         assertNotExist(R.id.activity_main_search_menu);
         assertNotExist(R.id.notification_menu);
         assertNotExist(R.id.about_menu);
         assertNotExist(R.id.help_menu);
+    }
+
+    @Test
+    public void layoutSearchActivityTest(){
         assertNotDisplayed(R.id.switch_notification);
         assertDisplayed(R.id.query_term);
         assertHint(R.id.query_term,R.string.search_query_term_hint);
@@ -80,20 +84,52 @@ public class SearchActivityTest {
         assertDisplayed(R.id.checkbox_travel);
         assertDisplayed(R.id.checkbox_entrepreneurs);
         assertDisplayed(R.id.checkbox_business);
+    }
+
+    @Test
+    public void displayToastSearchActivityTest(){
         clickOn(R.id.search_query_button);
         onView(withText(R.string.query_term_empty)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
-        sleep(1500);
+        sleep(2500);
         writeTo(R.id.query_term,"nba");
         assertContains(R.id.query_term,"nba");
         closeKeyboard();
+        clickOn(R.id.search_query_button);
+        onView(withText(R.string.checkbox_selected)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void datePickerSearchActivity(){
         clickOn(R.id.begin_date);
         setDateOnPicker(2018,12,01);
         assertContains(R.id.begin_date,"01/12/2018");
         clickOn(R.id.end_date);
         setDateOnPicker(2019,03,15);
         assertContains(R.id.end_date,"15/03/2019");
+    }
+
+    @Test
+    public void displayToastIfNoResultSearchActivity(){
+        writeTo(R.id.query_term,"eeeeeeeeeeeeeeeeeeeeee");
+        clickOn(R.id.checkbox_sport);
+        clickOn(R.id.checkbox_travel);
+        clickOn(R.id.checkbox_entrepreneurs);
+        clickOn(R.id.checkbox_business);
+        clickOn(R.id.checkbox_arts);
+        clickOn(R.id.checkbox_politics);
         clickOn(R.id.search_query_button);
-        onView(withText(R.string.checkbox_selected)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
+        sleep(500);
+        onView(withText(R.string.no_result_search)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void searchActivityTest(){
+        writeTo(R.id.query_term,"nba");
+        closeKeyboard();
+        clickOn(R.id.begin_date);
+        setDateOnPicker(2018,12,01);
+        clickOn(R.id.end_date);
+        setDateOnPicker(2019,03,15);
         clickOn(R.id.checkbox_sport);
         assertChecked(R.id.checkbox_sport);
         clickOn(R.id.search_query_button);
@@ -110,23 +146,9 @@ public class SearchActivityTest {
         assertListNotEmpty(R.id.search_result_recycler_view);
         clickListItem(R.id.search_result_recycler_view,0);
         assertDisplayed(R.string.webviewToolbarTitle);
+        clickBack();
+        assertDisplayed(R.string.result_search_toolbar_title);
         onView(withContentDescription(R.string.abc_action_bar_up_description)).perform(click());
-        clickMenu(R.id.activity_main_search_menu);
-        writeTo(R.id.query_term,"eeeeeeeeeeeeeeeeeeeeee");
-        clickOn(R.id.checkbox_sport);
-        clickOn(R.id.checkbox_travel);
-        clickOn(R.id.checkbox_entrepreneurs);
-        clickOn(R.id.checkbox_business);
-        clickOn(R.id.checkbox_arts);
-        clickOn(R.id.checkbox_politics);
-        clickOn(R.id.search_query_button);
-        onView(withText(R.string.no_result_search)).inRoot(withDecorView(not(mDecorView))).check(matches(isDisplayed()));
-
-
-
-
-
-
+        assertDisplayed(R.string.searchToolbarTitle);
     }
-
 }
