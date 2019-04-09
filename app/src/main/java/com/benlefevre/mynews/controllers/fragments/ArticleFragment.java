@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
@@ -119,7 +118,7 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
     }
 
     /**
-     * Configures OnRefresh to make the correct http request according to the ArticleFragment's position
+     * Configures OnRefresh to reload the correct http request according to the ArticleFragment's position
      * in the ViewPager when user swipe from top to down.
      */
     private void configureSwipeRefreshLayout() {
@@ -228,7 +227,8 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
     }
 
     /**
-     * Adds to the RecyclerView the support of the user's item click.
+     * Adds to the RecyclerView the support of the user's item click and sends an intent to DisplayArticleActivity
+     * with selected articles's url and title in extra.
      */
     private void configureOnClickItemRecyclerView(){
         ItemClickSupport.addTo(mArticleFragmentRecyclerView,R.id.item_layout)

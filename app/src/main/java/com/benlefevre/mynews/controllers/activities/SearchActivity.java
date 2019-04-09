@@ -83,12 +83,15 @@ public class SearchActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.begin_date:
+//                Displays a Date Picker when user click and updates mBeginDate when user choose a date
                 displayDatePicker(0);
                 break;
             case R.id.end_date:
+//                Displays a Date Picker when user click and updates mEndDate when user choose a date
                 displayDatePicker(1);
                 break;
             case R.id.search_query_button:
+//                Displays toast if needed queries missing and sends an intent if all queries are filled
                 configureQueries();
                 if (mQuery.isEmpty())
                     Toast.makeText(this, getString(R.string.query_term_empty), Toast.LENGTH_SHORT).show();
@@ -107,7 +110,7 @@ public class SearchActivity extends AppCompatActivity {
 
     /**
      * Creates a DatePickerDialog with different Theme according to the build version. When user set a date in the DatePicker,
-     * the corresponding EditText is updated.     *
+     * the corresponding EditText is updated.
      *
      * @param tag A value to set the text in the correct EditText
      */

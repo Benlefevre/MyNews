@@ -25,7 +25,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     private SharedPreferences mSharedPreferences;
     private int mTypeOfArticle;
 
-    //    We have 2 ArticleAdapter's constructor to match the Http request used.
+//    We have 2 ArticleAdapter's constructor to match the Http request used.
 //    If we use TopStories and MostPopular requests, we need typeOfArticle because image's paths
 //    are different.
     public ArticleAdapter(List<Article.Result> resultList, RequestManager requestManager, int typeOfArticle) {
@@ -43,6 +43,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleViewHolder> {
     @Override
     public ArticleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Context context = parent.getContext();
+//        We fetch SharedPreferences that we need to put them in ViewHolder's constructor for change
+//        the read article's background color
         mSharedPreferences = context.getSharedPreferences(Constants.PREFERENCES, Context.MODE_PRIVATE);
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);

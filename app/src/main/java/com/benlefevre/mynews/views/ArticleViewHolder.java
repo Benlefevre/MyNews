@@ -42,19 +42,25 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-
+    /**
+     * Updates UI for each RecyclerView's items.
+     * @param result the Article.Result contained in the ArticleAdapter's results list for an item
+     * @param requestManager Google Glide here
+     */
     public void updateUi(Article.Result result, RequestManager requestManager) {
         String id = Utils.convertTitleToId(result.getTitle());
         updateSection(result);
         mTitle.setText(Utils.convertTitleForDisplay(result.getTitle()));
         mDate.setText(Utils.convertDateForDisplay(result.getPublishedDate()));
         updateImageView(result, requestManager);
-        if (mSharedPreferences.contains(id))
-            mConstraintLayout.setBackgroundResource(R.color.colorReadArticle);
-        else
-            mConstraintLayout.setBackgroundResource(R.color.background);
+        changeBackgroundColorIfAlreadyRead(id);
     }
 
+    /**
+     * Updates UI for each RecyclerView's items.
+     * @param doc the Article.Doc contained in the ArticleAdapter's docs list for an item
+     * @param requestManager Google Glie here
+     */
     public void updateUiForResearch(Article.Doc doc, RequestManager requestManager) {
         String id = Utils.convertTitleToId(doc.getHeadline().getMain());
         mSection.setText(doc.getSectionName());
@@ -71,6 +77,14 @@ public class ArticleViewHolder extends RecyclerView.ViewHolder {
             requestManager.load(url).into(mImageView);
         } else
             mImageView.setImageResource(R.drawable.ic_broken_image);
+        changeBackgroundColorIfAlreadyRead(id);
+    }
+
+    /**
+     * Modifies the item's background color if the article is already read
+     * @param id the article's id
+     */
+    private void changeBackgroundColorIfAlreadyRead(String id) {
         if (mSharedPreferences.contains(id))
             mConstraintLayout.setBackgroundResource(R.color.colorReadArticle);
         else

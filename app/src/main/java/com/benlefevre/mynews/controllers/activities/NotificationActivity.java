@@ -86,7 +86,8 @@ public class NotificationActivity extends AppCompatActivity {
 
     /**
      * SearchActivity and NotificationActivity use a common layout.
-     * Disables views that are no needed in this activity
+     * Disables views that are no needed in this activity and update UI if the switch's state in
+     * SharedPreferences is checked.
      */
     private void configureLayout() {
         mSearchQueryButton.setVisibility(View.GONE);
@@ -153,7 +154,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     /**
-     * Saves in SharedPreferences the UI's state to restore it if mSwitchNotification is checked
+     * Saves in SharedPreferences the UI's state to restore it after if mSwitchNotification is checked
      */
     private void saveInSharedPreferencesQueryParameters() {
         mSharedPreferences.edit().putBoolean(Constants.SWITCH, mSwitchNotification.isChecked()).apply();

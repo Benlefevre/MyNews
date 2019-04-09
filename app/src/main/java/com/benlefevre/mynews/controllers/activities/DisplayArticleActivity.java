@@ -26,7 +26,9 @@ public class DisplayArticleActivity extends AppCompatActivity {
         mSharedPreferences = getSharedPreferences(PREFERENCES,MODE_PRIVATE);
         configureToolbar();
         mWebview = findViewById(R.id.webview);
+//        We load the WebView with the intent's extra named URL
         mWebview.loadUrl(getIntent().getStringExtra(URL));
+//        We put in SharedPreferences a short Title as an ID to know if the user has already read an article
         mSharedPreferences.edit().putString(getIntent().getStringExtra(ID),"id").apply();
     }
 

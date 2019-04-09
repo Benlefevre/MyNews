@@ -89,7 +89,7 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     /**
-     * Configures OnRefresh to make the http request when user swipe from top to down.
+     * Configures OnRefresh to reload the http request when user swipe from top to down.
      */
     private void configureSwipeRefreshLayout() {
         mSearchResultSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -101,7 +101,7 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     /**
-     * Fetch all the IntentExtra (from SearchActivity) to set the QueryMap needed to execute the
+     * Fetch all the IntentExtra (from SearchActivity) to set the needed QueryMap to execute the
      * Http request on searchAPI.
      */
     private void getIntentExtra() {
@@ -121,7 +121,6 @@ public class SearchResultActivity extends AppCompatActivity {
             endDate = Utils.convertDateForQuery(intent.getStringExtra(Constants.ENDDATE));
             mQueries.put("end_date", endDate);
         }
-
     }
 
     /**
@@ -164,13 +163,15 @@ public class SearchResultActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
+                        onBackPressed();
                     }
                 });
         builder.show();
     }
 
     /**
-     * Adds to the RecyclerView the support of the user's item click.
+     * Adds to the RecyclerView the support of the user's item click and send an intent to DisplayArticleActivity
+     * with the article's url and title in extra.
      */
     private void configureOnClickItemRecyclerView(){
         ItemClickSupport.addTo(mSearchResultRecyclerView,R.id.item_layout)

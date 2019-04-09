@@ -46,6 +46,7 @@ public class NotificationReceiver extends BroadcastReceiver {
         Map<String, String> map = new HashMap<>();
         map.put("q", query);
         map.put("fq", filterQuery);
+        map.put("sort","newest");
         Disposable disposable = NyTimesStream.streamFetchSearchArticles(map)
                 .subscribeWith(new DisposableObserver<Article>() {
                     @Override

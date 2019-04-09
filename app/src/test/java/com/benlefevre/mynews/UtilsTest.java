@@ -50,6 +50,10 @@ public class UtilsTest {
         initialDate = "2019-04-03T06:24:44+0000";
 
         assertEquals("03/04/2019",Utils.convertDateForDisplay(initialDate));
+
+        initialDate = "2012-04-30T00:00:00Z";
+
+        assertEquals("30/04/2012",Utils.convertDateForDisplay(initialDate));
     }
 
     @Test
@@ -87,25 +91,27 @@ public class UtilsTest {
     public void configureQueries(){
         MockitoAnnotations.initMocks(this);
 
-        assertEquals("()",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+        assertEquals("news_desk:()",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
         when(cb1.isChecked()).thenReturn(true);
-        assertEquals("(\"arts\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+        assertEquals("news_desk:(\"Arts\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
 
         when(cb2.isChecked()).thenReturn(true);
-        assertEquals("(\"arts\" \"business\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+        assertEquals("news_desk:(\"Arts\" \"Business\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
 
         when(cb3.isChecked()).thenReturn(true);
         when(cb4.isChecked()).thenReturn(true);
-        assertEquals("(\"arts\" \"business\" \"politics\" \"sport\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+        assertEquals("news_desk:(\"Arts\" \"Business\" \"Politics\" \"Sports\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
 
         when(cb5.isChecked()).thenReturn(true);
         when(cb6.isChecked()).thenReturn(true);
-        assertEquals("(\"arts\" \"business\" \"politics\" \"sport\" \"entrepreneurs\" \"travel\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
+        assertEquals("news_desk:(\"Arts\" \"Business\" \"Politics\" \"Sports\" \"Entrepreneurs\" \"Travel\" )",Utils.configureFilterQueries(cb1,cb2,cb3,cb4,cb5,cb6));
     }
 
     @Test
     public void convertTitleToIdTest(){
         String initialtitle = "Ethiopian Crash Report Indicates Pilots Followed Boeing’s Emergency Procedures";
         assertEquals("Ethiopian Crash Repo",Utils.convertTitleToId(initialtitle));
+        initialtitle = "Ethiopian Crash";
+        assertEquals("Ethiopian Crash",Utils.convertTitleToId(initialtitle));
     }
 }
