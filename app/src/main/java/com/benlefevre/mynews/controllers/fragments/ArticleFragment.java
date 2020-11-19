@@ -8,6 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
 import com.benlefevre.mynews.controllers.activities.DisplayArticleActivity;
@@ -20,12 +25,9 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -49,6 +51,7 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
     private Disposable mDisposable;
     private ArticleAdapter mArticleAdapter;
     private List<Article.Result> mResultList;
+    private Unbinder mUnbinder;
 
     public ArticleFragment() {
         // Required empty public constructor
@@ -80,7 +83,7 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_article, container, false);
-        ButterKnife.bind(this, view);
+        mUnbinder = ButterKnife.bind(this, view);
         executeHttpRequestAccordindToPosition(position);
         configureSwipeRefreshLayout();
         configureRecyclerView();
@@ -251,6 +254,7 @@ public class ArticleFragment extends androidx.fragment.app.Fragment {
         super.onDestroy();
         if (mDisposable != null && !mDisposable.isDisposed())
             mDisposable.dispose();
+        mUnbinder.unbind();
     }
 
     /**

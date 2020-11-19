@@ -11,6 +11,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.NotificationReceiver;
@@ -21,13 +26,10 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 import static com.benlefevre.mynews.utils.Constants.ARTS;
 import static com.benlefevre.mynews.utils.Constants.BUSINESS;
@@ -73,13 +75,14 @@ public class NotificationActivity extends AppCompatActivity {
     private String mQuery;
     private String mFilterQuery;
     private SharedPreferences mSharedPreferences;
+    private Unbinder mUnbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         mSharedPreferences = getSharedPreferences(PREFERENCES, MODE_PRIVATE);
-        ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
         configureToolbar();
         configureLayout();
     }
@@ -227,5 +230,11 @@ public class NotificationActivity extends AppCompatActivity {
     private void stopAlarm() {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(mPendingIntent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        mUnbinder.unbind();
+        super.onDestroy();
     }
 }

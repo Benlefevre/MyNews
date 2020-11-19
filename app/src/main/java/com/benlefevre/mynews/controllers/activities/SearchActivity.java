@@ -9,6 +9,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.utils.Constants;
 import com.benlefevre.mynews.utils.Utils;
@@ -18,13 +23,10 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Calendar;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -56,12 +58,13 @@ public class SearchActivity extends AppCompatActivity {
     private String mBeginQuery;
     private String mEndQuery;
     private int mNbChecked;
+    private Unbinder mUnbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
         configureToolbar();
         mSwitchNotification.setVisibility(View.GONE);
     }
@@ -169,5 +172,11 @@ public class SearchActivity extends AppCompatActivity {
             mNbChecked++;
         if (mCheckboxTravel.isChecked())
             mNbChecked++;
+    }
+
+    @Override
+    protected void onDestroy() {
+        mUnbinder.unbind();
+        super.onDestroy();
     }
 }

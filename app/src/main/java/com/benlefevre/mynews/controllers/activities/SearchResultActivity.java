@@ -6,6 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.benlefevre.mynews.R;
 import com.benlefevre.mynews.adapters.ArticleAdapter;
 import com.benlefevre.mynews.models.Article;
@@ -21,15 +29,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 
@@ -48,12 +50,13 @@ public class SearchResultActivity extends AppCompatActivity {
     private List<Article.Doc> mDocList;
     private ArticleAdapter mArticleAdapter;
     private Context mContext;
+    private Unbinder mUnbinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result);
-        ButterKnife.bind(this);
+        mUnbinder = ButterKnife.bind(this);
         mContext = this;
         configureToolBar();
         configureSwipeRefreshLayout();
@@ -194,6 +197,7 @@ public class SearchResultActivity extends AppCompatActivity {
         super.onDestroy();
         if (mDisposable != null && !mDisposable.isDisposed())
             mDisposable.dispose();
+        mUnbinder.unbind();
     }
 
     /**

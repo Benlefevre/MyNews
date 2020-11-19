@@ -11,7 +11,6 @@ import android.os.Build;
 import android.widget.Toast;
 
 import com.google.android.gms.security.ProviderInstaller;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -21,17 +20,19 @@ import javax.net.ssl.SSLEngine;
 
 import static com.benlefevre.mynews.utils.Constants.CHANNEL_ID;
 
+//import com.squareup.leakcanary.LeakCanary;
+
 public class MyNews extends Application {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
+//        LeakCanary.install(this);
         internetConnectivityTest();
         checkTls();
         createNotificationChannel();
